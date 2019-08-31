@@ -4,8 +4,12 @@
 
     <div class="leftList">
       <van-sidebar v-model="activeKey">
-        <van-sidebar-item :title="item.name" v-for="item in menuList"
-        @click="changeProductList(item.id)" :key="item.id"/>
+        <van-sidebar-item
+          :title="item.name"
+          v-for="item in menuList"
+          @click="changeProductList(item.id)"
+          :key="item.id"
+        />
       </van-sidebar>
     </div>
 
@@ -13,18 +17,22 @@
     <div class="right-nav">
       <ul class="right-nav-ul">
         <li class="right-nav-li" v-for="item in productsList" :key="item.id">
+          <!-- 图片 -->
           <div class="pic">
             <img :src="item.img" />
           </div>
+
+          <!-- 商品信息 -->
           <div span="20" class="product-info">
-            <div>
-              <p class="productname">{{item.name}}</p>
-              <p class="specifics">{{item.specifics}}</p>
-              <p>
-                <b class="market_price">￥{{item.market_price}}</b>
-                <s class="price">￥{{item.price}}</s>
-              </p>
-            </div>
+            <p class="productname">{{item.name}}</p>
+            <p class="specifics">{{item.specifics}}</p>
+            <p>
+              <b class="market_price">￥{{item.market_price}}</b>
+              <s class="price">￥{{item.price}}</s>
+            </p>
+            <!-- 步进器 -->
+            <!-- min的意思是代表最小值是0 不写的话默认是1 -->
+            <van-stepper v-model="item._had_pm" min="0" class="step" />
           </div>
         </li>
       </ul>
@@ -71,7 +79,8 @@ export default {
   //左侧导航
   .leftList {
     width: 85px;
-    float: left;
+    position: fixed;
+    left: 0;
   }
   //右侧菜单
   .right-nav {
@@ -93,31 +102,36 @@ export default {
       }
 
       //商品信息
-      .product-info{
+      .product-info {
         margin-left: 70px;
         .productname {
-        font-size: 14px;
-      }
+          font-size: 14px;
+        }
 
-      .specifics {
-        color: #aaa;
-        padding: 5px 0;
-      }
+        .specifics {
+          color: #aaa;
+          padding: 5px 0;
+        }
 
-      .stepper {
-        float: right;
-      }
+        .stepper {
+          float: right;
+        }
 
-      .market_price {
-        color: red;
-        font-size: 14px;
-      }
+        .market_price {
+          color: red;
+          font-size: 14px;
+        }
 
-      .price {
-        color: #aaa;
-      }
-      }
+        .price {
+          color: #aaa;
+        }
 
+        // 步进器
+        .step {
+          float: right;
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
