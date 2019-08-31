@@ -13,14 +13,19 @@
           <div class="bgi bgi1"></div>
           <p>首页</p>
         </van-col>
-        <van-col span="6">
-          <div class="bgi bgi2"></div>
-          <p>闪送超市</p>
-        </van-col>
-        <van-col span="6">
-          <div class="bgi bgi3"></div>
-          <p>购物车</p>
-        </van-col>
+        <router-link :to="{name:'list'}">
+          <van-col span="6">
+            <div class="bgi bgi2"></div>
+            <p>闪送超市</p>
+          </van-col>
+        </router-link>
+        <router-link :to="{name:'cart'}">
+          <van-col span="6" class="cartShow">
+            <div class="bgi bgi3"></div>
+            <div class="cartNum">10</div>
+            <p>购物车</p>
+          </van-col>
+        </router-link>
         <van-col span="6">
           <div class="bgi bgi4"></div>
           <p>我的</p>
@@ -76,16 +81,32 @@ export default {}
     background-size: 100% 100%;
   }
   .bgi2 {
-    background: url('../assets/images/menu-icon/navs-item-cart.png');
+    background: url("../assets/images/menu-icon/navs-item-cart.png");
     background-size: 100% 100%;
   }
   .bgi3 {
-    background: url('../assets/images/menu-icon/navs-item-menu.png');
+    background: url("../assets/images/menu-icon/navs-item-menu.png");
     background-size: 100% 100%;
   }
   .bgi4 {
-     background: url('../assets/images/menu-icon/navs-item-mine.png');
+    background: url("../assets/images/menu-icon/navs-item-mine.png");
     background-size: 100% 100%;
+  }
+  .cartShow {
+    position: relative;
+    .cartNum {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      color: #fff;
+      font-size: 12px;
+      right: 30%;
+      top: 0;
+    }
   }
 }
 </style>

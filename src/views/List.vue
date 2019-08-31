@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     // 拿到左侧菜单的数据
+    // 一开始默认的是id = 104751的这个
     async getData (id = 104751) {
       let res = await this.$http.jsonp('http://localhost:3008/list')
       this.menuList = res.data.categories
