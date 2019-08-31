@@ -1,12 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const List = () => import(/* webpackChunkName: 'index' */ './views/List.vue')
+// 组件按需加载
+const Home = () => import(/* webpackChunkName: 'home' */ './views/Home.vue')
+const List = () => import(/* webpackChunkName: 'home' */ './views/List.vue')
+console.log(List)
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
-    path: '/list',
-    name: 'list',
-    component: List
-  }]
+  routes: [
+    {
+      path: '/',
+      // 默认重定向到home/list
+      redirect: '/home/list'
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Home,
+      children: [
+        { path: '/home/list', name: 'list', component: List }
+      ]
+    }
+  ]
 })
