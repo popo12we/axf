@@ -43,6 +43,13 @@
                img:item.img,
                price:item.market_price
                })"
+              @minus="minusbeeCart({
+               id:item.id,
+               count:(item._had_pm-0+1),
+               name:item.name,
+               img:item.img,
+               price:item.market_price
+               })"
             />
           </div>
         </li>
@@ -60,7 +67,9 @@ export default {
       // 左侧导航
       menuList: [],
       // 右侧商品列表
-      productsList: []
+      productsList: [],
+      // 购物车已经有的数据(回显步进器数值用)
+      getlocalStorageList: []
     }
   },
   created () {
@@ -73,7 +82,17 @@ export default {
       let res = await this.$http.jsonp('http://localhost:3008/list')
       this.menuList = res.data.categories
       this.productsList = res.data.products[id]
-      console.log(res.data.products)
+      this.getlocalStorageList =
+        JSON.parse(localStorage.getItem('beeCart')) || []
+
+      // 如果发现购物车数据count有值 就把productsList对应的项找到,并且把该项had_pm替换成count
+      for (var i = 0; i < this.productsList.length; i++) {
+        for (var j = 0; j < this.getlocalStorageList.length; j++) {
+          if (this.productsList[i].id === this.getlocalStorageList[j].id) {
+            this.productsList[i]._had_pm = this.getlocalStorageList[j].count
+          }
+        }
+      }
     },
 
     // 点击左侧导航条 切换右侧菜单
@@ -84,6 +103,9 @@ export default {
     // 添加一件商品
     addbeeCart (obj) {
       this.$store.dispatch('addOne', obj)
+    },
+    minusbeeCart (obj) {
+      this.$store.dispatch('minusOne', obj)
     }
   }
 }

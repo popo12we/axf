@@ -22,11 +22,19 @@ export default new Vuex.Store({
       }
       // 3.添加到localStorage中
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
+    },
+    minus (state, payload) {
+      const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
+      isExistProduct.count--
+      localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     }
   },
   actions: {
     addOne (context, obj) {
       context.commit('add', obj)
+    },
+    minusOne (context, obj) {
+      context.commit('minus', obj)
     }
   }
 })
