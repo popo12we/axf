@@ -22,7 +22,7 @@
         <router-link :to="{name:'cart'}">
           <van-col span="6" class="cartShow">
             <div class="bgi bgi3"></div>
-            <div class="cartNum">10</div>
+            <div class="cartNum">{{allCount}}</div>
             <p>购物车</p>
           </van-col>
         </router-link>
@@ -36,7 +36,12 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['allPrice', 'allCount'])
+  }
+}
 </script>
 <style lang="less" scoped>
 // 头部样式

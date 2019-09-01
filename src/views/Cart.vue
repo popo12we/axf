@@ -20,31 +20,38 @@
     <van-row class="cartlist">
       <ul>
         <li v-for="item in beeCartList" class="oneproduct" :key="item.id">
-          <van-col span="3">
-            <img :src="item.img" class="img" />
-          </van-col>
-          <van-col span="21" class="product-info">
-            <van-col span="16">{{item.name}}</van-col>
-            <van-stepper
-              span="4"
-              v-model="item.count"
-              min="0"
-              @plus="addbeeCart({
+
+          <van-swipe-cell>
+            <van-col span="3">
+              <img :src="item.img" class="img" />
+            </van-col>
+            <van-col span="21" class="product-info">
+              <van-col span="16">{{item.name}}</van-col>
+              <van-stepper
+                span="4"
+                v-model="item.count"
+                min="0"
+                @plus="addbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
                price:item.market_price-0
                })"
-              @minus="minusbeeCart({
+                @minus="minusbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
                price:item.market_price-0
                })"
-            />
-          </van-col>
+              />
+            </van-col>
+
+            <template slot="right">
+              <van-button square type="danger" text="删除" @click="delOneProduct({id:item.id})"/>
+            </template>
+          </van-swipe-cell>
         </li>
       </ul>
     </van-row>
@@ -56,7 +63,10 @@
       <van-col span="12" class="settle">
         共{{allPrice}}元
         <van-button type="warning" @click="showPopup">结算</van-button>
-        <van-popup v-model="show" :style="{ width:'30%',height: '10%',textAlign:'center',lineHeight:'70px' }">一共{{allPrice}}元</van-popup>
+        <van-popup
+          v-model="show"
+          :style="{ width:'30%',height: '10%',textAlign:'center',lineHeight:'70px' }"
+        >一共{{allPrice}}元</van-popup>
       </van-col>
     </van-row>
   </div>
@@ -83,6 +93,10 @@ export default {
     // 展示弹出层
     showPopup () {
       this.show = true
+    },
+    delOneProduct (obj) {
+      this.$store.dispatch('delOne', obj)
+      this.beeCartList = JSON.parse(localStorage.getItem('beeCart'))
     }
   },
   computed: {
@@ -105,12 +119,17 @@ export default {
 
   .cartlist {
     border: 2px solid #00aabb;
-    padding: 20px;
+    padding:20px 0 20px 20px;
     .oneproduct {
-      padding: 10px;
-      height: 20px;
-      line-height: 20px;
+      height: 40px;
+      line-height: 40px;
       box-sizing: content-box;
+      .product-info{
+         height: 100%;
+      }
+      img{
+        margin-top:12px;
+      }
     }
   }
 

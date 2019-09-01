@@ -9,7 +9,6 @@
         :coupons="coupons"
         :chosen-coupon="chosenCoupon"
         @change="onChange"
-        @exchange="onExchange"
         :show-exchange-bar=false
       />
     </van-popup>
@@ -18,34 +17,34 @@
 <script>
 const coupon1 = {
   available: 1,
-  condition: '无使用门槛\n最多优惠12元',
+  condition: '满30元\n优惠1元',
   reason: '',
   value: 100,
-  name: '优惠券名称',
-  startAt: 1489104000,
-  endAt: 1514592000,
+  name: '1元优惠券',
+  startAt: 1567204000,
+  endAt: 1568092000,
   valueDesc: '1',
   unitDesc: '元'
 }
 const coupon2 = {
   available: 2,
-  condition: '无使用门槛\n最多优惠12元',
+  condition: '满30元\n优惠2元',
   reason: '',
   value: 200,
-  name: '优惠券名称',
-  startAt: 1489104000,
-  endAt: 1514592000,
+  name: '2元优惠券',
+  startAt: 1567204000,
+  endAt: 1568092000,
   valueDesc: '2',
   unitDesc: '元'
 }
 const coupon3 = {
   available: 3,
-  condition: '无使用门槛\n最多优惠12元',
+  condition: '满30元\n优惠3元',
   reason: '',
   value: 300,
-  name: '优惠券名称',
-  startAt: 1489104000,
-  endAt: 1514592000,
+  name: '3元优惠券',
+  startAt: 1567204000,
+  endAt: 1568092000,
   valueDesc: '3',
   unitDesc: '元'
 }

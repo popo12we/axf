@@ -27,6 +27,12 @@ const store = new Vuex.Store({
       const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
       isExistProduct.count--
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
+    },
+
+    del (state, payload) {
+      let idx = state.beeCartList.findIndex(item => item.id === payload.id)
+      state.beeCartList.splice(idx, 1)
+      localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     }
   },
   actions: {
@@ -35,6 +41,9 @@ const store = new Vuex.Store({
     },
     minusOne (context, obj) {
       context.commit('minus', obj)
+    },
+    delOne (context, obj) {
+      context.commit('del', obj)
     }
   },
   getters: {
