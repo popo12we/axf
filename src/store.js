@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     beeCartList: JSON.parse(localStorage.getItem('beeCart')) || []
   },
@@ -36,5 +36,26 @@ export default new Vuex.Store({
     minusOne (context, obj) {
       context.commit('minus', obj)
     }
+  },
+  getters: {
+    // 总价格
+    allPrice () {
+      let sum = 0
+      store.state.beeCartList.forEach(item => {
+        sum += item.price * item.count
+      })
+      console.log(sum)
+      return sum
+    },
+    // 总商品件数
+    allCount () {
+      let all = 0
+      store.state.beeCartList.forEach(item => {
+        all += item.count
+      })
+      return all
+    }
   }
+
 })
+export default store

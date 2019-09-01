@@ -41,14 +41,14 @@
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
-               price:item.market_price
+               price:item.market_price-0
                })"
               @minus="minusbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
-               price:item.market_price
+               price:item.market_price-0
                })"
             />
           </div>
