@@ -32,7 +32,18 @@
             </p>
             <!-- 步进器 -->
             <!-- min的意思是代表最小值是0 不写的话默认是1 -->
-            <van-stepper v-model="item._had_pm" min="0" class="step" />
+            <van-stepper
+              v-model="item._had_pm"
+              min="0"
+              class="step"
+              @plus="addbeeCart({
+               id:item.id,
+               count:(item._had_pm-0+1),
+               name:item.name,
+               img:item.img,
+               price:item.market_price
+               })"
+            />
           </div>
         </li>
       </ul>
@@ -68,6 +79,11 @@ export default {
     // 点击左侧导航条 切换右侧菜单
     changeProductList (id) {
       this.getData(id)
+    },
+
+    // 添加一件商品
+    addbeeCart (obj) {
+      this.$store.dispatch('addOne', obj)
     }
   }
 }
