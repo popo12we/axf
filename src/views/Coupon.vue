@@ -64,6 +64,7 @@ export default {
       this.chosenCoupon = index
       if (index !== -1) {
         this.$store.state.couponmoney = this.coupons[index].value / 100
+        console.log(this.$store.state.couponmoney)
       }
       this.$router.push('/home/cart')
     }

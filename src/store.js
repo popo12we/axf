@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    beeCartList: JSON.parse(localStorage.getItem('beeCart')) || []
+    beeCartList: JSON.parse(localStorage.getItem('beeCart')) || [],
+    // 优惠券一开始默认省0元
+    couponmoney: 0
   },
   mutations: {
     add (state, payload) {
@@ -53,7 +55,9 @@ const store = new Vuex.Store({
       store.state.beeCartList.forEach(item => {
         sum += item.price * item.count
       })
-      console.log(sum)
+      if (sum >= 30) {
+        sum = sum - store.state.couponmoney
+      }
       return sum
     },
     // 总商品件数
@@ -63,7 +67,18 @@ const store = new Vuex.Store({
         all += item.count
       })
       return all
+    },
+    // 总价满30元展示出优惠券
+    isShowCoupon () {
+      let sum = 0
+
+      store.state.beeCartList.forEach(item => {
+        sum += item.price * item.count
+      })
+
+      return sum >= 30
     }
+
   }
 
 })

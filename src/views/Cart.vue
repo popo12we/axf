@@ -59,7 +59,7 @@
     <!-- 购物车信息 -->
     <van-row class="cartlistcomputed">
       <van-col span="6" class="all">一共{{allCount}}件商品</van-col>
-      <van-col span="6" class="coupon">优惠券</van-col>
+      <van-col span="6" class="coupon" @click="linkToCoupon" v-if="isShowCoupon">优惠券</van-col>
       <van-col span="12" class="settle">
         共{{allPrice}}元
         <van-button type="warning" @click="showPopup">结算</van-button>
@@ -96,11 +96,16 @@ export default {
     },
     delOneProduct (obj) {
       this.$store.dispatch('delOne', obj)
+      // 一定要写这行不然视图不会更新
       this.beeCartList = JSON.parse(localStorage.getItem('beeCart'))
+    },
+    // 跳转到优惠券页面
+    linkToCoupon () {
+      this.$router.push('/coupon')
     }
   },
   computed: {
-    ...mapGetters(['allPrice', 'allCount'])
+    ...mapGetters(['allPrice', 'allCount', 'isShowCoupon'])
   }
 }
 </script>
@@ -145,6 +150,7 @@ export default {
     }
     .settle {
       text-align: right;
+      float:right;
     }
   }
 }
