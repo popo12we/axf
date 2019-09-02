@@ -10,6 +10,8 @@ import 'vant/lib/index.css'
 import './tools'
 // 引入样式初始化文件
 import './assets/css/base.css'
+// 引入字体图标JS
+import './assets/font/iconfont'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(Vant)

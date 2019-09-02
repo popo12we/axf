@@ -8,29 +8,29 @@
 
     <!-- 底部 -->
     <div class="footer">
-      <van-row>
-        <van-col span="6">
-          <div class="bgi bgi1"></div>
-          <p>首页</p>
-        </van-col>
-        <router-link :to="{name:'list'}">
-          <van-col span="6">
-            <div class="bgi bgi2"></div>
+      <ul>
+        <li>
+          <router-link to="/" class="bgi bgi1">
+            <p>首页</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/home/list" class="bgi bgi2">
             <p>闪送超市</p>
-          </van-col>
-        </router-link>
-        <router-link :to="{name:'cart'}">
-          <van-col span="6" class="cartShow">
-            <div class="bgi bgi3"></div>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/home/cart" class="cartShow bgi bgi3">
             <div class="cartNum">{{allCount}}</div>
             <p>购物车</p>
-          </van-col>
-        </router-link>
-        <van-col span="6">
-          <div class="bgi bgi4"></div>
-          <p>我的</p>
-        </van-col>
-      </van-row>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/" class="bgi bgi4">
+            <p>我的</p>
+          </router-link>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -71,31 +71,53 @@ export default {
   background-color: #fff;
   z-index: 999;
   background-color: #f8f8f8;
-  .bgi {
-    display: block;
-    height: 25px;
-    width: 25px;
-    margin: 0 auto;
+  ul {
+    overflow: hidden;
+    height: 100%;
   }
-  p {
-    font-size: 12px;
-    line-height: 25px;
+  li {
+    float: left;
+    width: 25%;
+    height: 100%;
+    a {
+      width: 100%;
+      height: 100%;
+      display: block;
+      p {
+        font-size: 12px;
+        padding-top: 10px;
+      }
+    }
   }
+
   .bgi1 {
-    background: url("../assets/images/menu-icon/navs-item-home.png");
-    background-size: 100% 100%;
+    background: url("../assets/images/menu-icon/navs-item-home.png") no-repeat
+      center top;
+    background-size: 25px 25px;
   }
   .bgi2 {
-    background: url("../assets/images/menu-icon/navs-item-cart.png");
-    background-size: 100% 100%;
+    background: url("../assets/images/menu-icon/navs-item-cart.png") no-repeat
+      center top;
+     background-size: 25px 25px;
+    &.active {
+      background: url("../assets/images/menu-icon/navs-item-cart-active.png")
+        no-repeat center top;
+       background-size: 25px 25px;
+    }
   }
   .bgi3 {
-    background: url("../assets/images/menu-icon/navs-item-menu.png");
-    background-size: 100% 100%;
+    background: url("../assets/images/menu-icon/navs-item-menu.png") no-repeat center top;
+     background-size: 25px 25px;
+    &.active {
+      background: url("../assets/images/menu-icon/navs-item-menu-active.png")
+        no-repeat center top;
+       background-size: 25px 25px;
+    }
   }
+
   .bgi4 {
-    background: url("../assets/images/menu-icon/navs-item-mine.png");
-    background-size: 100% 100%;
+    background: url("../assets/images/menu-icon/navs-item-mine.png") no-repeat center top;
+     background-size: 25px 25px;
   }
   .cartShow {
     position: relative;

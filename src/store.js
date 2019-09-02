@@ -35,6 +35,10 @@ const store = new Vuex.Store({
       let idx = state.beeCartList.findIndex(item => item.id === payload.id)
       state.beeCartList.splice(idx, 1)
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
+    },
+    update (state, payload) {
+      let idx = state.beeCartList.findIndex(item => item.id === payload.id)
+      state.beeCartList[idx].isSelected = !state.beeCartList[idx].isSelected
     }
   },
   actions: {
@@ -46,13 +50,17 @@ const store = new Vuex.Store({
     },
     delOne (context, obj) {
       context.commit('del', obj)
+    },
+    updateOne (context, obj) {
+      context.commit('update', obj)
     }
   },
   getters: {
     // 总价格
     allPrice () {
       let sum = 0
-      store.state.beeCartList.forEach(item => {
+      let arr = store.state.beeCartList.filter(item => item.isSelected)
+      arr.forEach(item => {
         sum += item.price * item.count
       })
       if (sum >= 30) {
@@ -71,7 +79,6 @@ const store = new Vuex.Store({
     // 总价满30元展示出优惠券
     isShowCoupon () {
       let sum = 0
-
       store.state.beeCartList.forEach(item => {
         sum += item.price * item.count
       })

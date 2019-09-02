@@ -1,55 +1,57 @@
 <template>
-  <div class="list">
+  <div class='list'>
     <!-- 左侧导航条 -->
 
-    <div class="leftList">
-      <van-sidebar v-model="activeKey">
+    <div class='leftList'>
+      <van-sidebar v-model='activeKey'>
         <van-sidebar-item
-          :title="item.name"
-          v-for="item in menuList"
-          @click="changeProductList(item.id)"
-          :key="item.id"
+          :title='item.name'
+          v-for='item in menuList'
+          @click='changeProductList(item.id)'
+          :key='item.id'
         />
       </van-sidebar>
     </div>
 
     <!-- 右侧商品列表 -->
-    <div class="right-nav">
-      <ul class="right-nav-ul">
-        <li class="right-nav-li" v-for="item in productsList" :key="item.id">
+    <div class='right-nav'>
+      <ul class='right-nav-ul'>
+        <li class='right-nav-li' v-for='item in productsList' :key='item.id'>
           <!-- 图片 -->
-          <div class="pic">
-            <img :src="item.img" />
+          <div class='pic'>
+            <img :src='item.img' />
           </div>
 
           <!-- 商品信息 -->
-          <div span="20" class="product-info">
-            <p class="productname">{{item.name}}</p>
-            <p class="specifics">{{item.specifics}}</p>
+          <div span='20' class='product-info'>
+            <p class='productname'>{{item.name}}</p>
+            <p class='specifics'>{{item.specifics}}</p>
             <p>
-              <b class="market_price">￥{{item.market_price}}</b>
-              <s class="price">￥{{item.price}}</s>
+              <b class='market_price'>￥{{item.market_price}}</b>
+              <s class='price'>￥{{item.price}}</s>
             </p>
             <!-- 步进器 -->
             <!-- min的意思是代表最小值是0 不写的话默认是1 -->
             <van-stepper
-              v-model="item._had_pm"
-              min="0"
-              class="step"
-              @plus="addbeeCart({
+              v-model='item._had_pm'
+              min='0'
+              class='step'
+              @plus='addbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
-               price:item.market_price-0
-               })"
-              @minus="minusbeeCart({
+               price:item.market_price-0,
+               isSelected:true
+               })'
+              @minus='minusbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
-               price:item.market_price-0
-               })"
+               price:item.market_price-0,
+               isSelected:true
+               })'
             />
           </div>
         </li>
@@ -129,6 +131,7 @@ export default {
       border-bottom: 1px solid #e1e1e1;
       overflow: hidden;
       padding: 20px 15px;
+      position: relative;
 
       // 图片
       .pic {
@@ -171,6 +174,15 @@ export default {
           margin-right: 10px;
         }
       }
+    }
+    .ball {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-radius: 50%;
+      background: yellow;
     }
   }
 }

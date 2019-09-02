@@ -1,14 +1,14 @@
 <template>
-  <div class="coupon">
+  <div class='coupon'>
     <!-- 优惠券单元格 -->
-    <van-coupon-cell :coupons="coupons" :chosen-coupon="chosenCoupon" @click="showList = true"  />
+    <van-coupon-cell :coupons='coupons' :chosen-coupon='chosenCoupon' @click='showList = true'  />
 
     <!-- 优惠券列表 -->
-    <van-popup v-model="showList" position="bottom">
+    <van-popup v-model='showList' position='bottom'>
       <van-coupon-list
-        :coupons="coupons"
-        :chosen-coupon="chosenCoupon"
-        @change="onChange"
+        :coupons='coupons'
+        :chosen-coupon='chosenCoupon'
+        @change='onChange'
         :show-exchange-bar=false
       />
     </van-popup>
@@ -71,7 +71,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang='less' scoped>
 /deep/ .van-overlay{
   display:none
 }

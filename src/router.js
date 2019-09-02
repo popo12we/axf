@@ -25,5 +25,7 @@ export default new Router({
       ]
     },
     { path: '/coupon', name: 'coupon', component: Coupon }
-  ]
+  ],
+
+  linkActiveClass: 'active'
 })
