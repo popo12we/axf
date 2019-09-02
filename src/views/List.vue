@@ -32,6 +32,7 @@
             </p>
             <!-- 步进器 -->
             <!-- min的意思是代表最小值是0 不写的话默认是1 -->
+            <!-- count:(item._had_pm-0+1)说明 减0是为了转成数字类型 步进器默认的值还是从1开始算的，所以这样写的目的是为了同步步进器的值-->
             <van-stepper
               v-model='item._had_pm'
               min='0'
@@ -78,7 +79,7 @@ export default {
     this.getData()
   },
   methods: {
-    // 拿到左侧菜单的数据
+    // 拿到列表数据
     // 一开始默认的是id = 104751的这个
     async getData (id = 104751) {
       let res = await this.$http.jsonp('http://localhost:3008/list')
@@ -106,6 +107,7 @@ export default {
     addbeeCart (obj) {
       this.$store.dispatch('addOne', obj)
     },
+    // 减少一件商品
     minusbeeCart (obj) {
       this.$store.dispatch('minusOne', obj)
     }

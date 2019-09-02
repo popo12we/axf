@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+// 1元优惠券
 const coupon1 = {
   available: 1,
   condition: '满30元\n优惠1元',
@@ -26,6 +27,7 @@ const coupon1 = {
   valueDesc: '1',
   unitDesc: '元'
 }
+// 2元优惠券
 const coupon2 = {
   available: 2,
   condition: '满30元\n优惠2元',
@@ -37,6 +39,7 @@ const coupon2 = {
   valueDesc: '2',
   unitDesc: '元'
 }
+// 3元优惠券
 const coupon3 = {
   available: 3,
   condition: '满30元\n优惠3元',
@@ -72,6 +75,7 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+// 修改vant-ui默认的样式
 /deep/ .van-overlay{
   display:none
 }

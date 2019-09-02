@@ -26,6 +26,6 @@ export default new Router({
     },
     { path: '/coupon', name: 'coupon', component: Coupon }
   ],
-
+  // 当前路由的类名
   linkActiveClass: 'active'
 })

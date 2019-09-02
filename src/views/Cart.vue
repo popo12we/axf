@@ -23,10 +23,10 @@
           <van-swipe-cell>
             <van-col span='2'>
               <!-- 字体图标 -->
-                 <svg class='icon iconchoose' aria-hidden='true'  v-if="item.isSelected" @click='fn(item.id)'>
+                 <svg class='icon iconchoose' aria-hidden='true'  v-if="item.isSelected" @click='isSelectedOneProduct(item.id)'>
                   <use xlink:href='#icon-gou'  />
                 </svg>
-                 <svg class='icon iconchoose' aria-hidden='true' @click='fn(item.id)' v-if="!item.isSelected">
+                 <svg class='icon iconchoose' aria-hidden='true' @click='isSelectedOneProduct(item.id)' v-if="!item.isSelected">
                   <use xlink:href='#icon-caozuojiemiantubiao---_yuan'/>
                 </svg>
 
@@ -87,6 +87,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      // 购物车数据
       beeCartList: JSON.parse(localStorage.getItem('beeCart')) || [],
       // 控制弹出层的显示和隐藏
       show: false
@@ -103,6 +104,7 @@ export default {
     },
     // 展示弹出层
     showPopup () {
+      // 显示出弹出层
       this.show = true
     },
     delOneProduct (obj) {
@@ -114,7 +116,8 @@ export default {
     linkToCoupon () {
       this.$router.push('/coupon')
     },
-    fn (id) {
+    // 左侧字体图标选中与未选中的对整个购物车的逻辑
+    isSelectedOneProduct (id) {
       let product = this.beeCartList.find(item => item.id === id)
       product.isSelected = !product.isSelected
       this.$store.dispatch('updateOne', product)
@@ -168,7 +171,7 @@ export default {
       float: right;
     }
   }
-
+  // 字体图标样式
   .icon {
     width: 2em;
     height: 2em;

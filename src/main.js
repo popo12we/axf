@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+// vuex文件
 import store from './store'
 import axios from 'axios'
 // 引入Vant-ui
@@ -13,6 +14,7 @@ import './assets/css/base.css'
 // 引入字体图标JS
 import './assets/font/iconfont'
 Vue.config.productionTip = false
+// 把axios添加到vue的原型上
 Vue.prototype.$http = axios
 Vue.use(Vant)
 new Vue({

@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     couponmoney: 0
   },
   mutations: {
+    // 购物车添加
     add (state, payload) {
       // 1.先确定添加的项在购物车之中是否已经存在
       const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
@@ -25,17 +26,19 @@ const store = new Vuex.Store({
       // 3.添加到localStorage中
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     },
+    // 购物车减少
     minus (state, payload) {
       const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
       isExistProduct.count--
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     },
-
+    // 点击右侧删除按钮删除一整项的逻辑
     del (state, payload) {
       let idx = state.beeCartList.findIndex(item => item.id === payload.id)
       state.beeCartList.splice(idx, 1)
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     },
+    // 点击字体图标更新一整项的逻辑
     update (state, payload) {
       let idx = state.beeCartList.findIndex(item => item.id === payload.id)
       state.beeCartList[idx].isSelected = !state.beeCartList[idx].isSelected
@@ -63,6 +66,7 @@ const store = new Vuex.Store({
       arr.forEach(item => {
         sum += item.price * item.count
       })
+      // 如果购物价格满30才能减优惠券里的值否则不减原样输出
       if (sum >= 30) {
         sum = sum - store.state.couponmoney
       }
@@ -76,7 +80,7 @@ const store = new Vuex.Store({
       })
       return all
     },
-    // 总价满30元展示出优惠券
+    // 总价满30元展示出优惠券 如果购物价格超过30元才展示否则不展示
     isShowCoupon () {
       let sum = 0
       store.state.beeCartList.forEach(item => {
