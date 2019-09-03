@@ -62,6 +62,7 @@ const store = new Vuex.Store({
     // 总价格
     allPrice () {
       let sum = 0
+      // 用临时数组arr来过滤出 已经选中的商品,只有选中的商品才能去计算他们的总价格
       let arr = store.state.beeCartList.filter(item => item.isSelected)
       arr.forEach(item => {
         sum += item.price * item.count
@@ -75,7 +76,9 @@ const store = new Vuex.Store({
     // 总商品件数
     allCount () {
       let all = 0
-      store.state.beeCartList.forEach(item => {
+      // 用临时数组arr来过滤出 已经选中的商品,只有选中的商品才能去计算他们的总件数
+      let arr = store.state.beeCartList.filter(item => item.isSelected)
+      arr.forEach(item => {
         all += item.count
       })
       return all
