@@ -1,7 +1,11 @@
 <template>
   <div class='list'>
     <!-- 左侧导航条 -->
-
+<van-notice-bar
+  mode="closeable"
+  text="好消息，好消息，特大好消息，老陆超市满30最多可享受3元优惠!!~~"
+  left-icon="volume-o"
+/>
     <div class='leftList'>
       <van-sidebar v-model='activeKey'>
         <van-sidebar-item
