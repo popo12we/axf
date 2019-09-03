@@ -3,6 +3,7 @@
 
     <!-- 通知栏 -->
     <van-notice-bar
+      class="noticebar"
       mode="closeable"
       text="好消息，好消息，特大好消息，老陆超市满30最多可享受3元优惠!!~~"
       left-icon="volume-o"
@@ -125,7 +126,6 @@ export default {
 .list {
   // 头部和底部都是固定定位 所以要留出50像素
   margin: 50px 0;
-
   //左侧导航
   .leftList {
     width: 85px;
@@ -184,15 +184,7 @@ export default {
         }
       }
     }
-    .ball {
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      border-radius: 50%;
-      background: yellow;
-    }
+
   }
 }
 </style>
