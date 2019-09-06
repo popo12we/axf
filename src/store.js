@@ -13,22 +13,24 @@ const store = new Vuex.Store({
     // 购物车添加
     add (state, payload) {
       // 1.先确定添加的项在购物车之中是否已经存在
-      const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
+      const isExistProduct = state.beeCartList.find(
+        item => item.id === payload.id
+      )
       // 2.1如果已经存在 对应的项++就行
       if (isExistProduct) {
         isExistProduct.count++
       } else {
         // 2.2如果找不到 就说明是第一次添加的 这时候要把整个对象添加到购物车里
-        state.beeCartList.push(
-          payload
-        )
+        state.beeCartList.push(payload)
       }
       // 3.添加到localStorage中
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     },
     // 购物车减少
     minus (state, payload) {
-      const isExistProduct = state.beeCartList.find(item => item.id === payload.id)
+      const isExistProduct = state.beeCartList.find(
+        item => item.id === payload.id
+      )
       isExistProduct.count--
       localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
     },
@@ -86,14 +88,13 @@ const store = new Vuex.Store({
     // 总价满30元展示出优惠券 如果购物价格超过30元才展示否则不展示
     isShowCoupon () {
       let sum = 0
-      store.state.beeCartList.forEach(item => {
+      let arr = store.state.beeCartList.filter(item => item.isSelected)
+      arr.forEach(item => {
         sum += item.price * item.count
       })
 
       return sum >= 30
     }
-
   }
-
 })
 export default store

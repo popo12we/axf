@@ -32,7 +32,7 @@
 
             </van-col>
             <van-col span='2'>
-              <img :src='item.img' class='img' />
+              <img src='https://img.yzcdn.cn/vant/t-thirt.jpg' class='img' />
             </van-col>
             <van-col span='20' class='product-info'>
               <van-col span='16'>{{item.name}}</van-col>
@@ -150,9 +150,6 @@ export default {
       box-sizing: content-box;
       .product-info {
         height: 100%;
-      }
-      img {
-        margin-top: 12px;
       }
     }
   }

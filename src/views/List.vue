@@ -27,7 +27,7 @@
         <li class="right-nav-li" v-for="item in productsList" :key="item.id">
           <!-- 图片 -->
           <div class="pic">
-            <img :src="item.img" />
+            <img src="https://img.yzcdn.cn/vant/t-thirt.jpg" />
           </div>
 
           <!-- 商品信息 -->
