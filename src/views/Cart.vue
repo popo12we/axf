@@ -206,7 +206,8 @@ export default {
   }
 
   .van-submit-bar {
-    bottom: 60px;
+    bottom: 50px;
+    background-color: #f8f8f8;
   }
 
   // 地址选择栏
