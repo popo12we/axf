@@ -1,96 +1,109 @@
 <template>
-  <div class='cart'>
+  <div class="cart">
     <!-- 收件人信息 -->
-    <van-row class='news'>
-      <van-row class='consignee'>
-        <van-col span='6'>收货人</van-col>
-        <van-col span='18' class='tl'>陆俊慧先生</van-col>
-      </van-row>
-      <van-row class='tel'>
-        <van-col span='6'>电话</van-col>
-        <van-col span='18' class='tl'>188********</van-col>
-      </van-row>
-      <van-row class='address'>
-        <van-col span='6'>地址</van-col>
-        <van-col span='18' class='tl'>上海市浦东新区航都路18号--黑马程序员</van-col>
+    <van-row class="news">
+      <van-row class="consignee">
+        <van-col span="3">收货人</van-col>
+        <van-col span="5" class="tl">陆俊慧先生</van-col>
+        <van-col span="16">地址:{{this.address}}</van-col>
       </van-row>
     </van-row>
 
     <!-- 购物车商品展示 -->
-    <van-row class='cartlist'>
+    <van-row class="cartlist">
       <ul>
-        <li v-for='item in beeCartList' class='oneproduct' :key='item.id'>
+        <li v-for="item in beeCartList" class="oneproduct" :key="item.id">
           <van-swipe-cell>
-            <van-col span='2'>
+            <van-col span="2">
               <!-- 字体图标 -->
-                 <svg class='icon iconchoose' aria-hidden='true'  v-if="item.isSelected" @click='isSelectedOneProduct(item.id)'>
-                  <use xlink:href='#icon-gou'  />
-                </svg>
-                 <svg class='icon iconchoose' aria-hidden='true' @click='isSelectedOneProduct(item.id)' v-if="!item.isSelected">
-                  <use xlink:href='#icon-caozuojiemiantubiao---_yuan'/>
-                </svg>
-
+              <svg
+                class="icon iconchoose"
+                aria-hidden="true"
+                v-if="item.isSelected"
+                @click="isSelectedOneProduct(item.id)"
+              >
+                <use xlink:href="#icon-gou" />
+              </svg>
+              <svg
+                class="icon iconchoose"
+                aria-hidden="true"
+                @click="isSelectedOneProduct(item.id)"
+                v-if="!item.isSelected"
+              >
+                <use xlink:href="#icon-caozuojiemiantubiao---_yuan" />
+              </svg>
             </van-col>
-            <van-col span='2'>
-              <img src='https://img.yzcdn.cn/vant/t-thirt.jpg' class='img' />
+            <van-col span="2">
+              <img src="https://img.yzcdn.cn/vant/t-thirt.jpg" class="img" />
             </van-col>
-            <van-col span='20' class='product-info'>
-              <van-col span='16'>{{item.name}}</van-col>
+            <van-col span="20" class="product-info">
+              <van-col span="16">{{item.name}}</van-col>
               <van-stepper
-                span='8'
-                v-model='item.count'
-                min='0'
-                @plus='addbeeCart({
+                span="8"
+                v-model="item.count"
+                min="0"
+                @plus="addbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
                price:item.market_price-0,
                isSelected:true,
-               })'
-                @minus='minusbeeCart({
+               })"
+                @minus="minusbeeCart({
                id:item.id,
                count:(item._had_pm-0+1),
                name:item.name,
                img:item.img,
                price:item.market_price-0,
                isSelected:true,
-               })'
+               })"
               />
             </van-col>
 
-            <template slot='right'>
-              <van-button square type='danger' text='删除' @click='delOneProduct({id:item.id})' />
+            <template slot="right">
+              <van-button square type="danger" text="删除" @click="delOneProduct({id:item.id})" />
             </template>
           </van-swipe-cell>
         </li>
       </ul>
     </van-row>
 
-    <!-- 购物车信息 -->
-    <van-row class='cartlistcomputed'>
-      <van-col span='6' class='all'>一共{{allCount}}件商品</van-col>
-      <van-col span='6' class='coupon' @click='linkToCoupon' v-if='isShowCoupon'>优惠券</van-col>
-      <van-col span='12' class='settle'>
-        共{{allPrice}}元
-        <van-button type='warning' @click='showPopup'>结算</van-button>
-        <van-popup
-          v-model='show'
-          :style="{ width:'30%',height: '10%',textAlign:'center',lineHeight:'70px'}"
-        >一共{{allPrice}}元</van-popup>
-      </van-col>
-    </van-row>
+    <!-- 地址选择栏 -->
+    <van-popup v-model="isShowAddress" closeable position="bottom" :style="{ height: '20%' }">
+      <div class="chooseAddress">
+        <van-area :area-list="areaList" @confirm="confirmAddress" @cancel="cancelAddress" />
+      </div>
+    </van-popup>
+
+    <!-- 结算栏 -->
+    <van-submit-bar :price="allPrice*100" button-text="提交订单" @submit="onSubmit">
+      <span class="coupon" @click="linkToCoupon" v-if="isShowCoupon">优惠券</span>
+      <span class="address" @click="linkToAddress">配送地址</span>
+    </van-submit-bar>
+    <van-popup
+      v-model="show"
+      :style="{ width:'30%',height: '10%',textAlign:'center',lineHeight:'70px'}"
+    >一共{{allPrice}}元</van-popup>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import areaList from '../tools/area.json'
+console.log(areaList)
 export default {
   data () {
     return {
       // 购物车数据
       beeCartList: JSON.parse(localStorage.getItem('beeCart')) || [],
       // 控制弹出层的显示和隐藏
-      show: false
+      show: false,
+      // 地址的json数据
+      areaList: areaList,
+      // 控制地址栏显示和隐藏
+      isShowAddress: false,
+      // 具体地址
+      address: ''
     }
   },
   methods: {
@@ -103,7 +116,7 @@ export default {
       this.$store.dispatch('minusOne', obj)
     },
     // 展示弹出层
-    showPopup () {
+    onSubmit () {
       // 显示出弹出层
       this.show = true
     },
@@ -121,6 +134,21 @@ export default {
       let product = this.beeCartList.find(item => item.id === id)
       product.isSelected = !product.isSelected
       this.$store.dispatch('updateOne', product)
+    },
+    // 展示配送地址
+    linkToAddress () {
+      this.isShowAddress = true
+    },
+
+    // 确定地址
+    confirmAddress (e) {
+      this.address = e[0].name + e[1].name + e[2].name
+      this.isShowAddress = false
+    },
+
+    // 取消地址
+    cancelAddress (e) {
+      this.isShowAddress = false
     }
   },
   computed: {
@@ -135,14 +163,14 @@ export default {
 
   // 收件人信息
   .news {
-    padding: 20px 50px;
+    border: 2px solid #00aabb;
+    padding: 20px 10px;
   }
   .tel {
     margin: 20px 0;
   }
 
   .cartlist {
-    border: 2px solid #00aabb;
     padding: 20px 0 20px 20px;
     .oneproduct {
       height: 40px;
@@ -155,19 +183,18 @@ export default {
   }
 
   // 购物车信息
-  .cartlistcomputed {
-    margin-top: 20px;
-    padding: 20px;
-    .all,
-    .coupon {
-      height: 44px;
-      line-height: 44px;
-    }
-    .settle {
-      text-align: right;
-      float: right;
-    }
+  .all,
+  .coupon,
+  .address {
+    height: 44px;
+    line-height: 44px;
+    margin-left: 20px;
   }
+  .settle {
+    text-align: right;
+    float: right;
+  }
+
   // 字体图标样式
   .icon {
     width: 2em;
@@ -175,7 +202,18 @@ export default {
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
-    margin-top:8px;
+    margin-top: 8px;
+  }
+
+  .van-submit-bar {
+    bottom: 60px;
+  }
+
+  // 地址选择栏
+  .chooseAddress {
+    position: fixed;
+    bottom: 100px;
+    width: 100%;
   }
 }
 </style>
