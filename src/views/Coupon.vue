@@ -65,7 +65,6 @@ export default {
       // 如果不是-1就说明使用了优惠券
       if (index !== -1) {
         this.$store.state.couponmoney = this.coupons[index].value / 100
-        console.log(this.$store.state.couponmoney)
       } else {
         // 如果是-1就说明没用优惠券 vuex优惠券价格置为0
         this.$store.state.couponmoney = 0

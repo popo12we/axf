@@ -26,12 +26,3 @@ axios.jsonp = (url, params) => {
     }
   })
 }
-
-// axios
-//   .jsonp(url, {
-//     page: 1,
-//     count: 3
-//   })
-//   .then(res => {
-//     console.log(res);
-//   })

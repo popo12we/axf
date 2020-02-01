@@ -20,14 +20,14 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/home/cart" class="cartShow bgi bgi3">
-            <div class="cartNum">{{allCount}}</div>
-            <p>购物车</p>
+          <router-link to="/" class="bgi bgi4">
+            <p>我的</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/" class="bgi bgi4">
-            <p>我的</p>
+          <router-link to="/home/cart" class="cartShow bgi bgi3">
+            <div class="cartNum">{{allCount}}</div>
+            <p>购物车</p>
           </router-link>
         </li>
       </ul>
