@@ -38,27 +38,7 @@
             </van-col>
             <van-col span="20" class="product-info">
               <van-col span="16">{{item.name}}</van-col>
-              <van-stepper
-                span="8"
-                v-model="item.count"
-                min="0"
-                @plus="addbeeCart({
-               id:item.id,
-               count:(item._had_pm-0+1),
-               name:item.name,
-               img:item.img,
-               price:item.market_price-0,
-               isSelected:true,
-               })"
-                @minus="minusbeeCart({
-               id:item.id,
-               count:(item._had_pm-0+1),
-               name:item.name,
-               img:item.img,
-               price:item.market_price-0,
-               isSelected:true,
-               })"
-              />
+               <NumberBox :item="item"></NumberBox>
             </van-col>
 
             <template slot="right">
@@ -89,9 +69,12 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import NumberBox from '../components/NumberBox'
 import areaList from '../tools/area.json'
-console.log(areaList)
 export default {
+  components: {
+    NumberBox
+  },
   data () {
     return {
       // 购物车数据

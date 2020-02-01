@@ -31,8 +31,10 @@ const store = new Vuex.Store({
       const isExistProduct = state.beeCartList.find(
         item => item.id === payload.id
       )
-      isExistProduct.count--
-      localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
+      if (isExistProduct && isExistProduct.count !== 0) {
+        isExistProduct.count--
+        localStorage.setItem('beeCart', JSON.stringify(state.beeCartList))
+      }
     },
     // 点击右侧删除按钮删除一整项的逻辑
     del (state, payload) {

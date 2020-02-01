@@ -37,11 +37,13 @@
             <p>
               <b class="market_price">￥{{item.market_price}}</b>
               <s class="price">￥{{item.price}}</s>
+                <NumberBox :item="item"></NumberBox>
             </p>
+
             <!-- 步进器 -->
             <!-- min的意思是代表最小值是0 不写的话默认是1 -->
             <!-- count:(item._had_pm-0+1)说明 减0是为了转成数字类型 步进器默认的值还是从1开始算的，所以这样写的目的是为了同步步进器的值-->
-            <van-stepper
+            <!-- <van-stepper
               v-model="item._had_pm"
               min="0"
               class="step"
@@ -61,7 +63,7 @@
                price:item.market_price-0,
                isSelected:true
                })"
-            />
+            /> -->
           </div>
         </li>
       </ul>
@@ -70,7 +72,11 @@
 </template>
 
 <script>
+import NumberBox from '../components/NumberBox'
 export default {
+  components: {
+    NumberBox
+  },
   data () {
     return {
       // 左侧导航条双向数据绑定的数据
@@ -97,28 +103,28 @@ export default {
         JSON.parse(localStorage.getItem('beeCart')) || []
 
       // 如果发现购物车数据count有值 就把productsList对应的项找到,并且把该项had_pm替换成count
-      for (var i = 0; i < this.productsList.length; i++) {
-        for (var j = 0; j < this.getlocalStorageList.length; j++) {
-          if (this.productsList[i].id === this.getlocalStorageList[j].id) {
-            this.productsList[i]._had_pm = this.getlocalStorageList[j].count
-          }
-        }
-      }
+    //   for (var i = 0; i < this.productsList.length; i++) {
+    //     for (var j = 0; j < this.getlocalStorageList.length; j++) {
+    //       if (this.productsList[i].id === this.getlocalStorageList[j].id) {
+    //         this.productsList[i].countNumber = this.getlocalStorageList[j].count
+    //       }
+    //     }
+    //   }
     },
 
     // 点击左侧导航条 切换右侧菜单
     changeProductList (id) {
       this.getData(id)
-    },
-
-    // 添加一件商品
-    addbeeCart (obj) {
-      this.$store.dispatch('addOne', obj)
-    },
-    // 减少一件商品
-    minusbeeCart (obj) {
-      this.$store.dispatch('minusOne', obj)
     }
+
+    // // 添加一件商品
+    // addbeeCart (obj) {
+    //   this.$store.dispatch('addOne', obj)
+    // },
+    // // 减少一件商品
+    // minusbeeCart (obj) {
+    //   this.$store.dispatch('minusOne', obj)
+    // }
   }
 }
 </script>
